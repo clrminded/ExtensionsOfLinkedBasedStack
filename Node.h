@@ -1,6 +1,11 @@
 #ifndef HEADER_NODE
 #define HEADER_NODE
 
+/**
+ * Templatizing the class to include any type that is include into the class.
+ * Private item and next, so we make some getters and setters
+ * We have 3 types of constructors
+ */
 template <class T>
 class Node {
 private:
@@ -15,53 +20,62 @@ public:
     T getItem() const;
     void setNext(Node<T>*);
     Node<T>* getNext() const;
-
 };
 
-/* default constructor of Node 
-*/
+/** 
+ * Default constructor of Node 
+ */
 template <class T>
 Node<T>::Node() :next(nullptr) {}
 
-/* constructor of item
-* initilzing item
-*/
+/** 
+ * Constructor of item
+ * @param: const _item white is just the data element, when constructing a Node like this
+ * we will assume that the next pointer is pointing to a nullptr.
+ * Fast initilzation of an item
+ * We would use this when we are creating a head, or a new Node in a list
+ */
 template <class T>
 Node<T>::Node(const T& _item) : item(_item), next(nullptr) {}
 
-/* constructor with pram _item and _next  
-* initilize next and item
-*/
+/** 
+ * Constructor with param _item and _next  
+ * initilize next and item
+ */
 template <class T>
 Node<T>::Node(const T& _item, Node<T>* _next) : item(_item), next(_next) {}
 
-/* setter method
-* sets the item to _item 
-*/
+/** 
+ * Setter method
+ * Sets the item to _item 
+ */
 template <class T>
 void Node<T>::setItem(const T& _item) {
     item = _item;
 }
 
-/*setter method 
-* sets the value for next* to _next 
-*/
+/**
+ * Setter method 
+ * Sets the value for next* to _next 
+ */
 template <class T>
 void Node<T>::setNext(Node<T>* _next) {
     next = _next;
 }
 
-/* getter method 
-* return item 
-*/
+/**
+ * Getter method 
+ * Return item 
+ */
 template <class T>
 T Node<T>::getItem() const {
     return item;
 }
 
-/* getter method  
-* returns next with the value type of node<T> 
-*/
+/**
+ * Getter method  
+ * Returns next with the value type of node<T> 
+ */
 template <class T>
 Node<T>* Node<T>::getNext() const {
     return next;

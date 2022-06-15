@@ -8,28 +8,41 @@ template <class T>
 class Stack : public StackInterface<T>
 {
 private:
-	Node<T>* topPtr; // Pointer to first node in the chain;
-					// this node contains the stack's top
+	/**
+	 * Pointer to first node in the chain;
+	 * This node contains the stack's top
+	 */
+	Node<T>* topPtr; 
 
 public:
-	// Constructors and destructor:
-	Stack();                       // Default constructor
-	Stack(const Stack<T>& aStack); // Copy constructor
-	virtual ~Stack();              // Destructor
+	/**
+	 * The Big 3
+	 * Default constructor
+	 * Copy constructor
+	 * Destructor
+	 */
+	Stack();
+	Stack(const Stack<T>& aStack);
+	virtual ~Stack();
 
-   //  Stack operations:
+    /**
+	 * Stack operations:
+	 */
 	bool isEmpty() const;
 	bool push(const T& newItem);
 	bool pop();
 	T peek() const;
 
-	/*max, mean, and operator+ */
+	/**
+	 * max, mean, and operator+ 
+	 */
 	T max() const;
 	T mean() const;
 	Stack<T> operator+(const Stack<T>& other);
-}; // end LinkedStack
+}; 
+// end LinkedStack
 
-/* ---------------------------------------IMPLEMENTATIONS FOR STACK.H-----------------------------------------------*/
+/* -----------------IMPLEMENTATIONS FOR STACK.H--------------------*/
 template < class T>
 Stack<T>::Stack() : topPtr(nullptr) {}
 
@@ -53,21 +66,25 @@ Stack<T>::Stack(const Stack<T>& aStack) {
 		}
 		newChainPtr = nullptr;
 	}
-}   // end copy constructor 
+}   
+// end copy constructor 
 
 template < class T>
 Stack<T>:: ~Stack() {
 	while (!isEmpty())
 		pop();
-} // end ~Stack()
+} 
+// end ~Stack()
 
 template <class T>
 bool Stack<T>::isEmpty() const {
 	return topPtr == nullptr;
-} //end isEmpty()
+} 
+//end isEmpty()
 
-/*
-*/
+/**
+ *
+ */
 template <class T>
 bool Stack<T>::push(const T& newItem) {
 	Node<T>* myNewNode = new Node<T>(newItem, topPtr);
@@ -75,30 +92,40 @@ bool Stack<T>::push(const T& newItem) {
 	myNewNode = nullptr;
 
 	return true;
-}//end push(const T& newItem)
+}
+//end push(const T& newItem)
 
 template < class T>
 bool Stack<T>::pop() {
-	bool result = false; // start with result = false 
-	if (!isEmpty()) { // making sure the stack has at least one item
-		Node <T>* myFirstNode = topPtr; // store topPtr into another one
+	// Start with result = false 
+	bool result = false; 
+	// Check to make sure the stack has at least one item.
+	if (!isEmpty()) { 
+		// Store topPtr into another one
+		Node <T>* myFirstNode = topPtr; 
 		topPtr = topPtr->getNext();
 		myFirstNode->setNext(nullptr);
-		delete myFirstNode; // end myFirstNode 
-		myFirstNode = nullptr; // set it equal to nullptr
-		result = true; // make it = true again 
+		// End myFirstNode
+		delete myFirstNode;  
+		// Set it equal to nullptr
+		myFirstNode = nullptr; 
+		// Make it = true again
+		result = true;  
 	}
-	return result; // return the final result
-} //end pop()
+	// return the final result
+	return result; 
+} 
+//end pop()
 
 template < class T>
 T Stack<T>::peek() const {
-	assert(!isEmpty()); // make sure it has items inside 
+	// Check to make sure it has items inside
+	assert(!isEmpty());  
 	return topPtr->getItem();
-} // end peak() 
+} 
+// end peak() 
 
-/*-----------------------------------IMPLEMENTATIONS FOR MAX, MEAN, AND +OPERATOR---------------------------------------------------*/
-
+/*----------IMPLEMENTATIONS FOR MAX, MEAN, AND +OPERATOR--------------*/
 template<class T>
 T Stack<T>::max() const {
 	assert(!isEmpty()); // make sure it has items inside 
@@ -132,8 +159,14 @@ T Stack<T>::mean() const {
 		myOtherNode = myOtherNode->getNext(); // move to the next node 
 	}
 	return addition / itemCount; // the mean value is sum / count. return it
-} // end mean()
+} 
+// end mean()
 
+
+/**
+ * operator+ overload, this will allow us to add two Stack classes together
+ * This is what will give us alot of options to do operations on class instances.
+ */
 template<class T>
 Stack<T>Stack<T>::operator+(const Stack<T>& other) {
 	//get the pointer of the top of two stacks. stack1 and stack2
@@ -161,5 +194,6 @@ Stack<T>Stack<T>::operator+(const Stack<T>& other) {
 		myStack = myStack->getNext();
 	}
 	return temp1;
-} // end +operator 
+} 
+// end +operator 
 #endif
